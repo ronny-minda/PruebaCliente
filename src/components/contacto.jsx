@@ -45,6 +45,15 @@ const Contacto = () => {
     queryFn: () => todosContactos(stadoUsuario.usuario.id),
   });
 
+  // Actualizar conponentes Hijos
+  useEffect(() => {
+    setBuscar(" ");
+    const time = setTimeout(() => {
+      setBuscar("");
+    }, 0.01);
+    return () => clearTimeout(time);
+  }, [data]);
+
   const cambios = (e) => {
     setNuevoContacto({ ...nuevoContacto, [e.target.name]: e.target.value });
   };
@@ -61,7 +70,10 @@ const Contacto = () => {
         <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
           {/* Inicio */}
           <div className="bg-white relative shadow-md sm:rounded-lg overflow-hidden">
-            <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+            <div
+              className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4"
+              style={{ boxShadow: "0px -10px 45px 0px rgb(0 0 0 / 37%)" }}
+            >
               <div className="w-full md:w-1/2">
                 <form className="flex items-center">
                   <label htmlFor="simple-search" className="sr-only">
@@ -87,7 +99,7 @@ const Contacto = () => {
                       type="text"
                       value={buscar}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2"
-                      placeholder="Buscar por nombre de usuario"
+                      placeholder="Buscar por nombre de contacto"
                       required=""
                       onChange={(e) => {
                         setBuscar(e.target.value);
@@ -118,7 +130,10 @@ const Contacto = () => {
                 </button>
               </div>
             </div>
-            <div className="overflow-x-hidden" style={{ height: "60vh" }}>
+            <div
+              className="stylosScrol overflow-x-hidden"
+              style={{ height: "60vh" }}
+            >
               <table className="w-full text-sm text-left text-gray-500">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                   <tr>
@@ -138,93 +153,34 @@ const Contacto = () => {
                 </thead>
                 <tbody>
                   {data?.data.map((value, key) => {
-                    if (key < numeroFiltro && key >= numeroFiltro - 5) {
-                      if (
-                        value.name.toLowerCase().includes(buscar.toLowerCase())
-                      ) {
-                        return (
-                          <tr key={key} className="border-b">
-                            <ContactoTr value={value} />
-                          </tr>
-                        );
-                      }
+                    // if (key < numeroFiltro && key >= numeroFiltro - 5) {
+                    if (
+                      value.name.toLowerCase().includes(buscar.toLowerCase())
+                    ) {
+                      return (
+                        <tr key={key} className="border-b">
+                          <ContactoTr value={value} />
+                        </tr>
+                      );
                     }
+                    // }
                   })}
                 </tbody>
               </table>
             </div>
             <nav
               className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
-              aria-label="Table navigation"
+              style={{ boxShadow: "0px -5px 45px 0px rgb(0 0 0 / 37%)" }}
             >
               <span className="text-sm font-normal text-gray-500">
                 <span className="font-semibold text-gray-900 ">
-                  {numeroFiltro - 5}-{numeroFiltro}
+                  {/* {numeroFiltro - 5}-{numeroFiltro} */}
+                  Total de contactos
                 </span>{" "}
-                de{" "}
                 <span className="font-semibold text-gray-900 ">
                   {data?.data.length}
                 </span>
               </span>
-              <ul className="inline-flex items-stretch -space-x-px">
-                <li>
-                  <div
-                    onClick={() => {
-                      if (numeroFiltro >= data?.data.length) {
-                        setNumeroFiltro(numeroFiltro - 5);
-                      }
-                    }}
-                    className="cursor-pointer flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
-                  >
-                    <span className="sr-only">Previous</span>
-                    <svg
-                      className="w-5 h-5"
-                      aria-hidden="true"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                </li>
-
-                <li>
-                  <div className="cursor-pointer flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
-                    ...
-                  </div>
-                </li>
-
-                <li>
-                  <div
-                    onClick={() => {
-                      if (numeroFiltro <= data?.data.length) {
-                        setNumeroFiltro(numeroFiltro + 5);
-                      }
-                    }}
-                    className="cursor-pointer flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
-                  >
-                    <span className="sr-only">Next</span>
-                    <svg
-                      className="w-5 h-5"
-                      aria-hidden="true"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                </li>
-              </ul>
             </nav>
           </div>
         </div>

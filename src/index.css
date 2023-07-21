@@ -64,3 +64,15 @@ body::-webkit-scrollbar-thumb {
       stroke-dashoffset: 100;
     }
   }
+
+
+
+
+  .stylosScrol::-webkit-scrollbar {
+    background: #f1f1f1;
+    width: 5px;
+  }
+  .stylosScrol::-webkit-scrollbar-thumb {
+    background: #707070;
+    border-radius: 5px;
+  }

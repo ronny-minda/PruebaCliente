@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import TablaTr from "./tablaTr";
 import { useQuery } from "@tanstack/react-query";
 import { todosUsuarios } from "../api/usuario";
+import Spiner from "./spiner";
 
 const Tabla = () => {
   const [datos, setDatos] = useState([]);
@@ -14,18 +15,34 @@ const Tabla = () => {
     queryFn: todosUsuarios,
   });
 
+  // Actualizar conponentes Hijos
+  useEffect(() => {
+    setBuscar(" ");
+    const time = setTimeout(() => {
+      setBuscar("");
+    }, 0.01);
+    return () => clearTimeout(time);
+  }, [data]);
+
   return (
     <>
-    <Helmet>
+      <Helmet>
         <title>Tabla</title>
-        <meta name="description" content="Todos los usuarios de esta plataforma" />
+        <meta
+          name="description"
+          content="Todos los usuarios de esta plataforma"
+        />
       </Helmet>
       {/* <!-- Start block --> */}
       <section className="bg-gray-50 p-3 sm:p-5 antialiased">
         <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
           {/* Inicio */}
           <div className="bg-white relative shadow-md sm:rounded-lg overflow-hidden">
-            <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+            {isLoading && <Spiner />}
+            <div
+              className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4"
+              style={{ boxShadow: "0px -10px 45px 0px rgb(0 0 0 / 37%)" }}
+            >
               <div className="w-full md:w-1/2">
                 <form className="flex items-center">
                   <label htmlFor="simple-search" className="sr-only">
@@ -51,7 +68,7 @@ const Tabla = () => {
                       type="text"
                       id="simple-search"
                       value={buscar}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg active:ring-blue-500 active:border-blue-500 block w-full pl-10 p-2"
                       placeholder="Buscar por nombre de usuario"
                       required=""
                       onChange={(e) => {
@@ -61,8 +78,28 @@ const Tabla = () => {
                   </div>
                 </form>
               </div>
+              <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                <select
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg active:ring-blue-500 active:border-blue-500 block w-full p-2.5"
+                  onChange={(e) => {
+                    setNumeroFiltro(e.target.value.split("-")[1]);
+                  }}
+                >
+                  <option selected value="0-5">
+                    0-5
+                  </option>
+                  <option value="0-10">0-10</option>
+                  <option value="0-15">0-15</option>
+                  <option value="0-20">0-20</option>
+                  <option value="0-25">0-25</option>
+                  <option value={`0-${data?.data.length}`}>0-ALL</option>
+                </select>
+              </div>
             </div>
-            <div className="overflow-x-hidden" style={{ height: "60vh" }}>
+            <div
+              className="stylosScrol overflow-x-hidden"
+              style={{ height: "50vh" }}
+            >
               <table className="w-full text-sm text-left text-gray-500">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                   <tr>
@@ -85,7 +122,7 @@ const Tabla = () => {
                 </thead>
                 <tbody>
                   {data?.data.map((value, key) => {
-                    if (key < numeroFiltro && key >= numeroFiltro - 5) {
+                    if (key < numeroFiltro) {
                       if (
                         value.name.toLowerCase().includes(buscar.toLowerCase())
                       ) {
@@ -104,7 +141,7 @@ const Tabla = () => {
             </div>
             <nav
               className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
-              aria-label="Table navigation"
+              style={{ boxShadow: "0px -5px 45px 0px rgb(0 0 0 / 37%)" }}
             >
               <span className="text-sm font-normal text-gray-500">
                 <span className="font-semibold text-gray-900 ">
@@ -115,7 +152,7 @@ const Tabla = () => {
                   {data?.data.length}
                 </span>
               </span>
-              <ul className="inline-flex items-stretch -space-x-px">
+              {/* <ul className="inline-flex items-stretch -space-x-px">
                 <li>
                   <div
                     onClick={() => {
@@ -173,7 +210,7 @@ const Tabla = () => {
                     </svg>
                   </div>
                 </li>
-              </ul>
+              </ul> */}
             </nav>
           </div>
         </div>
