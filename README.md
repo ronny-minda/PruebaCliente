@@ -2,9 +2,11 @@
 
 ## Breve descripción o introducción.
 
+![Drag Racing](./public/captura.jpeg)
+
 ### Requisitos previos
 
-Asegúrate de tener Node.js instalado en tu sistema. Puedes descargar la última versión estable de Node.js desde [el sitio oficial](https://nodejs.org/).
+Asegúrate de tener Node.js instalado en tu sistema.
 
 ### Instalación
 
