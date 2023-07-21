@@ -1,12 +1,12 @@
 # Prueba CentralFile FrontEnd
 
-Breve descripción o introducción.
+## Breve descripción o introducción.
 
-## Requisitos previos
+### Requisitos previos
 
 Asegúrate de tener Node.js instalado en tu sistema. Puedes descargar la última versión estable de Node.js desde [el sitio oficial](https://nodejs.org/).
 
-## Instalación
+### Instalación
 
 Clona este repositorio utilizando el siguiente comando:
 
@@ -14,7 +14,7 @@ Clona este repositorio utilizando el siguiente comando:
 git clone https://github.com/ronny-minda/PruebaCliente
 ```
 
-## Accede al directorio del proyecto:
+### Accede al directorio del proyecto:
 
 ```bash
 cd PruebaCliente
@@ -34,7 +34,7 @@ Instala las dependencias del proyecto ejecutando:
 npm install
 ```
 
-## Uso
+### Uso
 
 Para iniciar la aplicación en modo de desarrollo, utiliza el siguiente comando:
 
@@ -44,7 +44,7 @@ npm run dev
 
 Esto iniciará el servidor de desarrollo y abrirá automáticamente la aplicación en tu navegador en la dirección http://localhost:5173.
 
-## Compilación para producción
+### Compilación para producción
 
 Para compilar la aplicación para producción, ejecuta:
 
@@ -54,7 +54,7 @@ npm run build
 
 Este comando generará una carpeta dist con los archivos optimizados listos para ser desplegados en un servidor web.
 
-## Para el inicio de sesion en la aplicacion es
+### Para el inicio de sesion en la aplicacion es
 
 ```bash
 usuario: admin@gmail.com
