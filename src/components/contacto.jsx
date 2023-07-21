@@ -29,7 +29,7 @@ const Contacto = () => {
     mutationFn: crearContacto,
     onSuccess: (data) => {
       setActualizar(false);
-      toast.success("Contacto Actualizado");
+      toast.success("Contacto Creado");
       setNuevoContacto({
         name: "",
         email: "",
@@ -49,7 +49,7 @@ const Contacto = () => {
     setNuevoContacto({ ...nuevoContacto, [e.target.name]: e.target.value });
   };
 
-  const crearUsuario = (e) => {
+  const crearContactoo = (e) => {
     e.preventDefault();
     crearContactoMutate(nuevoContacto);
   };
@@ -241,7 +241,7 @@ const Contacto = () => {
               {/* <!-- Modal header --> */}
               <div className="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
                 <h3 className="text-lg font-semibold text-gray-900 ">
-                  Actualizar Usuario
+                  Crear Contacto
                 </h3>
                 <button
                   type="button"
@@ -264,7 +264,7 @@ const Contacto = () => {
                 </button>
               </div>
               {/* <!-- Modal body --> */}
-              <form onSubmit={(e) => crearUsuario(e)}>
+              <form onSubmit={(e) => crearContactoo(e)}>
                 <div className="grid gap-4 mb-4 sm:grid-cols-2">
                   <div>
                     <label
@@ -323,7 +323,7 @@ const Contacto = () => {
                     type="submit"
                     className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors"
                   >
-                    Actualizar
+                    Crear
                   </button>
                 </div>
               </form>
