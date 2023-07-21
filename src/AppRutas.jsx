@@ -22,20 +22,23 @@ const App = () => {
   return (
     <>
       <Loader />
-      // loader de primera carga de la app
+      {/* loader de primera carga de la app */}
+
       <Toaster richColors position="bottom-right" />
       <Layout>
         <AnimatePresence>
           <Routes location={location} key={location.pathname}>
             <Route path="/*" element={<Navigate to="/login" />} />
-            // todas la rutas van asia login
+            {/* todas la rutas van asia login */}
+
             <Route element={<NotProtected />}>
-              // contenedor de paginas no protegidas
+              {/*contenedor de paginas no protegidas */}
               <Route path="/login" element={<Login />} />
               <Route path="/registrarse" element={<Registrarse />} />
             </Route>
+
             <Route element={<Protected />}>
-              // contenedor de paginas protegidas o privadas
+              {/*contenedor de paginas protegidas o privadas */}
               <Route path="/dashboard/tabla" element={<Dashboard />} />
               <Route path="/dashboard/perfil" element={<Dashboard />} />
               <Route path="/dashboard/contactos" element={<Dashboard />} />
